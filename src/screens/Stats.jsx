@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View, StyleSheet } from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown';
 
 function Stats() {
-  const [selectedOption, setSelectedOption] = useState('Daily');
+  const [selectedOption, setSelectedOption] = useState('Income');
   const [value, setValue] = useState('Monthly');
 
   const data = [
@@ -50,6 +50,37 @@ function Stats() {
           />
         </View>
       </View>
+
+      {/* Options */}
+      <View className="flex-row w-full py-2">
+        <TouchableOpacity onPress={() => setSelectedOption('Income')}
+          className={`w-1/3 flex items-center ${selectedOption === 'Income' ? 'border-b-2 border-[#d66760]' : 'border-b-2 border-[#9b9b9b]'
+            }`
+          }>
+          <Text className="text-white text-base pr-3 pb-1">
+            Income
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setSelectedOption('Expense')}
+          className={`w-1/3 flex items-center ${selectedOption === 'Expense' ? 'border-b-2 border-[#d66760]' : 'border-b-2 border-[#9b9b9b]'
+            }`
+          }>
+          <Text className="text-white text-base pr-3">
+            Expense
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setSelectedOption('Investment')}
+          className={`w-1/3 flex items-center ${selectedOption === 'Investment' ? 'border-b-2 border-[#d66760]' : 'border-b-2 border-[#9b9b9b]'
+            }`
+          }>
+          <Text className="text-white text-base pr-3">
+            Investment
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* main body */}
+
 
     </View>
   )
