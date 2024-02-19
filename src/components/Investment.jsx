@@ -10,7 +10,7 @@ function CustomButton({ title, onPress }) {
   )
 }
 
-function AddInEx({ navigation }) {
+function Investment({ navigation }) {
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
@@ -43,7 +43,20 @@ function AddInEx({ navigation }) {
         <View>
           <View className="flex-row justify-between py-2 w-full">
             <TouchableOpacity onPress={() => { setShowDatePicker(true); handlePressOutside(); setSelectItem("DateTime") }} className="flex-row w-1/4 ">
-              <Text className="text-[#c0c0c0] text-base">Date</Text>
+              <Text className="text-[#c0c0c0] text-base">From Date</Text>
+            </TouchableOpacity>
+            <View className={`flex-row w-3/4 justify-between border-b-[1px] border-[#4e4e4e] pb-1 ${(showDatePicker || showTimePicker) && 'border-[white]'}`}>
+              <TouchableOpacity onPress={() => { setShowDatePicker(true); handlePressOutside(); setSelectItem("DateTime") }} className="flex-row px-2">
+                <Text className="text-[#ffffff] text-base">{date.toLocaleDateString()}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => { setShowTimePicker(true); handlePressOutside(); setSelectItem("DateTime") }} className="flex-row px-2">
+                <Text className="text-[#ffffff] text-base">{date.toLocaleTimeString()}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View className="flex-row justify-between py-2 w-full">
+            <TouchableOpacity onPress={() => { setShowDatePicker(true); handlePressOutside(); setSelectItem("DateTime") }} className="flex-row w-1/4 ">
+              <Text className="text-[#c0c0c0] text-base">To Date</Text>
             </TouchableOpacity>
             <View className={`flex-row w-3/4 justify-between border-b-[1px] border-[#4e4e4e] pb-1 ${(showDatePicker || showTimePicker) && 'border-[white]'}`}>
               <TouchableOpacity onPress={() => { setShowDatePicker(true); handlePressOutside(); setSelectItem("DateTime") }} className="flex-row px-2">
@@ -81,12 +94,22 @@ function AddInEx({ navigation }) {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => { handlePressOutside(); setSelectItem("Category") }} className="flex-row w-full py-2">
-          <Text className="text-[#c0c0c0] text-base w-1/4 pt-1">Category</Text>
+          <Text className="text-[#c0c0c0] text-base w-1/4 pt-1">Type</Text>
           <Text className={`px-2 text-[#ffffff] text-base w-3/4 border-b-[1px] border-[#4e4e4e] pb-1 ${selectItem === 'Category' && 'border-[white]'}`}>{category}</Text>
         </TouchableOpacity>
 
         <View className="flex-row w-full py-2">
           <Text className="text-[#c0c0c0] text-base w-1/4 pt-1">Amount</Text>
+          <TextInput className={`px-2 text-[#ffffff] text-base w-3/4 border-b-[1px] border-[#4e4e4e] pb-1 ${selectItem === 'Amount' && 'border-[white]'}`}
+            value={amount}
+            onFocus={() => setSelectItem("Amount")}
+            onChangeText={text => setAmount(text)}
+            keyboardType="numeric"
+          />
+        </View>
+
+        <View className="flex-row w-full py-2">
+          <Text className="text-[#c0c0c0] text-base w-1/4 pt-1">Interest</Text>
           <TextInput className={`px-2 text-[#ffffff] text-base w-3/4 border-b-[1px] border-[#4e4e4e] pb-1 ${selectItem === 'Amount' && 'border-[white]'}`}
             value={amount}
             onFocus={() => setSelectItem("Amount")}
@@ -149,4 +172,4 @@ function AddInEx({ navigation }) {
   )
 }
 
-export default AddInEx
+export default Investment

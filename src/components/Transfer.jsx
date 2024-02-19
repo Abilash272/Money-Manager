@@ -10,13 +10,13 @@ function CustomButton({ title, onPress }) {
   )
 }
 
-function AddInEx({ navigation }) {
+function Transfer({ navigation }) {
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [selectItem, setSelectItem] = useState("");
   const [account, setAccount] = useState('');
-  const [category, setCategory] = useState('');
+  const [toAccount, setToCategory] = useState('');
   const [amount, setAmount] = useState('');
   const [note, setNote] = useState('');
   const [buttons, setButtons] = useState(['Education', 'Health', 'Food', 'Travel', 'Fun'])
@@ -76,13 +76,13 @@ function AddInEx({ navigation }) {
           )}
         </View>
         <TouchableOpacity onPress={() => { handlePressOutside(); setSelectItem("Account") }} className="flex-row w-full py-2">
-          <Text className="text-[#c0c0c0] text-base w-1/4 pt-1">Account</Text>
+          <Text className="text-[#c0c0c0] text-base w-1/4 pt-1">From Account</Text>
           <Text className={`px-2 text-[#ffffff] text-base w-3/4 border-b-[1px] border-[#4e4e4e] pb-1 ${selectItem === 'Account' && 'border-[white]'}`}>{account}</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => { handlePressOutside(); setSelectItem("Category") }} className="flex-row w-full py-2">
-          <Text className="text-[#c0c0c0] text-base w-1/4 pt-1">Category</Text>
-          <Text className={`px-2 text-[#ffffff] text-base w-3/4 border-b-[1px] border-[#4e4e4e] pb-1 ${selectItem === 'Category' && 'border-[white]'}`}>{category}</Text>
+        <TouchableOpacity onPress={() => { handlePressOutside(); setSelectItem("ToAccount") }} className="flex-row w-full py-2">
+          <Text className="text-[#c0c0c0] text-base w-1/4 pt-1">To Account</Text>
+          <Text className={`px-2 text-[#ffffff] text-base w-3/4 border-b-[1px] border-[#4e4e4e] pb-1 ${selectItem === 'ToAccount' && 'border-[white]'}`}>{toAccount}</Text>
         </TouchableOpacity>
 
         <View className="flex-row w-full py-2">
@@ -149,4 +149,4 @@ function AddInEx({ navigation }) {
   )
 }
 
-export default AddInEx
+export default Transfer
