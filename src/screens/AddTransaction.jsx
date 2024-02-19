@@ -13,7 +13,7 @@ const CustomButton = ({ onPress, title }) => {
   );
 };
 
-const MyScreen = () => {
+const AddTransaction = ({ navigation }) => {
   const [selectedType, setSelectedType] = useState('Income');
 
   return (
@@ -34,9 +34,13 @@ const MyScreen = () => {
           <AddInEx />
         </View>
       </View>
+      <Button title="Go to Jane's profile"
+        onPress={() =>
+        navigation.navigate('Categories', {title: 'Expenses', categories: ['🍔 Food', '⛩️ Culture', '❤️ Health', '🗺️ Travel', '🎮 Fun']})
+      }/>
     </View>
 
   );
 };
 
-export default MyScreen;
+export default AddTransaction;
