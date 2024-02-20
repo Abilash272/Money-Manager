@@ -10,7 +10,7 @@ function CustomButton({ title, onPress }) {
   )
 }
 
-function AddInEx({ navigation }) {
+function Expense({ navigation }) {
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
@@ -149,4 +149,4 @@ function AddInEx({ navigation }) {
   )
 }
 
-export default AddInEx
+export default Expense

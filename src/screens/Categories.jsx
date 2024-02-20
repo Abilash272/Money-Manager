@@ -1,4 +1,6 @@
-import React from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react'
 import { View, Text, ScrollView, StatusBar } from 'react-native'
 
 function Category({ title }) {
@@ -14,10 +16,33 @@ function Category({ title }) {
 }
 
 function Categories({ navigation, route }) {
+
+  const [categories, setCategories] = useState(['Fry']);
+
+  useEffect(() => {
+    getCategories();
+  }, [])
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getCategories();
+    }, [])
+  )
+
+  const getCategories = async () => {
+    const data = JSON.parse(await AsyncStorage.getItem('categories'));
+    console.log(data);
+    if(data.length > 0){
+      setCategories(data);
+    }else{
+      setCategories(['Burger', 'Pizza'])
+    }
+  }
+  
   return (
     <View className="flex-1 items-center bg-[#1f2022]">
       <ScrollView>
-        {route.params.categories.map((category, index) => {
+        {categories.map((category, index) => {
           return(
             <Category key={index} title={category} />
           )

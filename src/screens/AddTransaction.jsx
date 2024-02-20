@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, Button, StatusBar, TextInput, TouchableOpacity } from 'react-native';
-import AddInEx from '../components/AddInEx';
 import Transfer from '../components/Transfer';
 import Investment from '../components/Investment';
+import Income from '../components/Income';
+import Expense from '../components/Expense';
 
 const CustomButton = ({ onPress, title, focus }) => {
   return (
@@ -33,8 +34,9 @@ const AddTransaction = ({navigation}) => {
           </View>
         </View>
         <View className="px-4 pt-3">
-          {selectedType === 'Income' || selectedType === 'Expense' ?
-            <AddInEx navigation={navigation} /> : 
+          {selectedType === 'Income'?
+            <Income navigation={navigation}/> : 
+            selectedType === 'Expense'? <Expense navigation={navigation}/> : 
             selectedType === 'Transfer'? <Transfer navigation={navigation} /> : <Investment navigation={navigation} />
           }
         </View>

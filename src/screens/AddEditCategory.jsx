@@ -1,52 +1,50 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react'
-import { Text, TextInput, TouchableWithoutFeedback, Button, TouchableOpacity, View, Keyboard, ScrollView } from 'react-native'
-import DateTimePicker from '@react-native-community/datetimepicker';
-
-function CustomButton({ title, onPress }) {
-  return (
-    <TouchableOpacity onPress={onPress} className="w-1/2">
-      <Text className="text-base py-1 border-[1px] text-center text-[#bbbbbb] border-[#bbbbbb]">{title}</Text>
-    </TouchableOpacity>
-  )
-}
+import { TextInput, Button, View, } from 'react-native'
 
 const AddEditCategory = ({ navigation }) => {
-  const [selectedType, setSelectedType] = useState('Income');
-  const [date, setDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [showTimePicker, setShowTimePicker] = useState(false);
-  const [selectItem, setSelectItem] = useState("");
-  const [account, setAccount] = useState('');
-  const [category, setCategory] = useState('');
-  const [amount, setAmount] = useState('');
   const [note, setNote] = useState('');
-  const [buttons, setButtons] = useState(['Education', 'Health', 'Food', 'Travel', 'Fun'])
+  const [data, setData] = useState([]);
 
-  const onChangeDate = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShowDatePicker(false);
-    setDate(currentDate);
-  };
+  useEffect(() => {
+    loadListFromStorage();
+  }, [])
 
-  const onChangeTime = (event, selectedTime) => {
-    const currentTime = selectedTime || date;
-    setShowTimePicker(false);
-    setDate(currentTime);
-  };
+  const loadListFromStorage = async () => {
+    try {
+      const list = await AsyncStorage.getItem('categories');
+      if(list.length > 0){
+        setData(JSON.parse(list));
+      }
+    } catch (error) {
+      console.error('Error loading list from AsyncStorage:', error);
+    }
+  }
 
-  const handlePressOutside = () => {
-    Keyboard.dismiss();
-  };
+  const modifyListinStorage = async () => {
+    try {
+      if(note !== ""){
+        const updatedList = [...data, note];
+        setData(updatedList);
+        await AsyncStorage.setItem('categories', JSON.stringify(updatedList));
+        setNote('');
+        navigation.navigate('Categories', {title: "Expenses"});
+      }
+      console.log();
+    } catch (error) {
+      console.error('Error appending item to list:', error);
+    }
+  }
+  
 
   return (
     <View className="flex-1 items-center flex w-full pt-3 px-4 bg-[#1f2022]">
       <View className="w-full py-2 pb-8">
-        <TextInput className={`px-2 text-[#ffffff] text-base w-full border-b-[1px] mb-5 border-[#4e4e4e] pb-1 ${selectItem === 'Note' && 'border-[white]'}`}
+        <TextInput className={`px-2 text-[#ffffff] text-base w-full border-b-[1px] mb-5 border-[#4e4e4e] pb-1`}
           value={note}
-          onFocus={() => setSelectItem("Note")}
           onChangeText={text => setNote(text)}
         />
-        <Button title="Submit" onPress={() => console.log('Submitted!')} />
+        <Button title="Submit" onPress={modifyListinStorage} />
       </View>
     </View>
 
